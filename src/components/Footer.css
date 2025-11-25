@@ -107,14 +107,15 @@
 }
 
 .newsletter-input {
-    flex: 1 1 300px; /* grow, shrink, and prefer 300px */
-    min-width: 220px; /* prevent the tiny pill effect */
-    padding: 0.8rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #E5E7EB;
-    font-size: 0.9rem;
+    flex: 1 1 300px;
+    min-width: 220px;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    font-size: 1rem;
+    min-height: 44px;
 }
 
 .newsletter-input:focus {
@@ -123,14 +124,16 @@
 }
 
 .newsletter-select {
-    padding: 0.8rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #E5E7EB; /* light gray for closed state label */
-    font-size: 0.9rem;
-    flex: 0 0 240px; /* keep reasonable width next to email input */
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    font-size: 1rem;
+    flex: 0 0 240px;
     appearance: none;
+    -webkit-appearance: none;
+    min-height: 44px;
 }
 
 .newsletter-select:focus {
@@ -201,6 +204,11 @@
 
     .newsletter-form {
         flex-direction: column;
+    }
+
+    .newsletter-input,
+    .newsletter-select {
+        width: 100%;
     }
 
     .newsletter-button {
