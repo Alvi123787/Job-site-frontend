@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './UpcomingEventsCalendar.css';
-import { API_BASE } from '../utils/media';
+ 
 
 function toISODate(d) {
   try {
@@ -26,8 +26,8 @@ function useUpcomingEvents() {
         setError('');
         // Fetch jobs (active only) and blogs
         const [jobsResp, blogsResp] = await Promise.all([
-          fetch(`${API_BASE}/api/jobs?limit=100`).catch(() => null),
-          fetch(`${API_BASE}/api/blogs`).catch(() => null),
+          fetch('https://job-site-backend-seven.vercel.app/api/jobs?limit=100').catch(() => null),
+          fetch('https://job-site-backend-seven.vercel.app/api/blogs').catch(() => null),
         ]);
         const jobsJson = jobsResp ? await jobsResp.json().catch(() => ({})) : {};
         const blogsJson = blogsResp ? await blogsResp.json().catch(() => ({})) : {};

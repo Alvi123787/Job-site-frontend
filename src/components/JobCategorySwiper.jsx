@@ -15,7 +15,7 @@ import {
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
 import "./JobCategorySwiper.css";
-import { API_BASE } from "../utils/media";
+ 
 
 const JobCategorySwiper = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const JobCategorySwiper = () => {
     let cancelled = false;
     (async () => {
       try {
-        const resp = await fetch(`${API_BASE}/api/jobs/categories`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/jobs/categories');
         if (!resp.ok) {
           setLoading(false);
           return;
@@ -73,7 +73,7 @@ const JobCategorySwiper = () => {
     return () => {
       cancelled = true;
     };
-  }, [API_BASE]);
+  }, []);
 
   // Swiper behavior aligned with TopCompanies
   const nextSlide = useCallback(() => {

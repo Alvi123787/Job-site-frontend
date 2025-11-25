@@ -1,5 +1,3 @@
-export const API_BASE ='https://job-site-backend-seven.vercel.app/';
-
 export function resolveImageUrl(url) {
   const u = String(url || '').trim();
   if (!u) return '';
@@ -19,11 +17,11 @@ export function resolveImageUrl(url) {
     } catch (_) {
       // fall through to proxy
     }
-    return `${API_BASE}/api/assets/image-proxy?url=${encodeURIComponent(u)}`;
+    return `https://job-site-backend-seven.vercel.app/api/assets/image-proxy?url=${encodeURIComponent(u)}`;
   }
   // Prefix backend-hosted uploads to API base so they load from the server
   if (u.startsWith('/uploads') || u.startsWith('uploads/')) {
-    return `${API_BASE}${u.startsWith('/') ? u : `/${u}`}`;
+    return `https://job-site-backend-seven.vercel.app${u.startsWith('/') ? u : `/${u}`}`;
   }
   // Allow local /public assets or other relative paths
   return u;

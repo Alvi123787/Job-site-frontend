@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ResponsiveContainer, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { API_BASE } from '../utils/media';
+ 
 import './Dashboard.css';
 
 // Normalize category labels consistently
@@ -18,8 +18,8 @@ export default function ContentDistributionChart() {
         setLoading(true);
         setError('');
         const [jobsResp, blogsResp] = await Promise.all([
-          fetch(`${API_BASE}/api/jobs/categories`),
-          fetch(`${API_BASE}/api/blogs`),
+          fetch('https://job-site-backend-seven.vercel.app/api/jobs/categories'),
+          fetch('https://job-site-backend-seven.vercel.app/api/blogs'),
         ]);
 
         const jobsJson = await jobsResp.json().catch(() => ({}));

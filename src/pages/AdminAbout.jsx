@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { API_BASE, resolveImageUrl } from '../utils/media';
+import { resolveImageUrl } from '../utils/media';
 import { 
   FaSave, 
   FaImage, 
@@ -33,7 +33,7 @@ export default function AdminAbout() {
       setAboutLoading(true);
       setAboutStatus('');
       try {
-        const resp = await fetch(`${API_BASE}/api/about`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/about');
         if (resp.ok) {
           const data = await resp.json();
           if (data && Object.keys(data).length) {
@@ -98,7 +98,7 @@ export default function AdminAbout() {
     setAboutStatus('');
     try {
       const token = localStorage.getItem('auth_token');
-      const resp = await fetch(`${API_BASE}/api/about`, {
+      const resp = await fetch('https://job-site-backend-seven.vercel.app/api/about', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

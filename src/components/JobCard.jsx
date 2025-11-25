@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaMapMarkerAlt, FaClock, FaDollarSign, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import './JobCard.css';
 import { saveJob, removeJob, isJobSaved, fetchSavedItems } from '../utils/saved';
-import { API_BASE } from '../utils/media';
+ 
 
 const JobCard = ({ job }) => {
     // Early return if job is undefined
@@ -14,7 +14,7 @@ const JobCard = ({ job }) => {
     // Prefer explicit logo fields across sources (API/local drafts)
     const rawLogo = job.logo || job.companyLogo || job.raw?.companyLogo || '/company-placeholder.svg';
     const isExternal = /^https?:\/\//i.test(String(rawLogo));
-    const logoSrc = isExternal ? `${API_BASE}/api/assets/image-proxy?url=${encodeURIComponent(rawLogo)}` : rawLogo;
+    const logoSrc = isExternal ? `https://job-site-backend-seven.vercel.app/api/assets/image-proxy?url=${encodeURIComponent(rawLogo)}` : rawLogo;
 
     const [saved, setSaved] = useState(false);
     const [saving, setSaving] = useState(false);

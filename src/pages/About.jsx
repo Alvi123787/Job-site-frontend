@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { API_BASE, resolveImageUrl } from '../utils/media';
+import { resolveImageUrl } from '../utils/media';
 import './About.css';
 
 const About = () => {
@@ -30,7 +30,7 @@ const About = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const resp = await fetch(`${API_BASE}/api/about`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/about');
         if (!resp.ok) return; // keep defaults
         const data = await resp.json();
         if (data && Object.keys(data).length) {
@@ -71,7 +71,7 @@ const About = () => {
     const fmt = (n) => `${Number(n || 0).toLocaleString()}+`;
     const fetchTotals = async () => {
       try {
-        const respTotals = await fetch(`${API_BASE}/api/analytics/totals`);
+        const respTotals = await fetch('https://job-site-backend-seven.vercel.app/api/analytics/totals');
         if (!respTotals.ok) return;
         const t = await respTotals.json();
         if (!mounted) return;

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
-import { API_BASE } from '../utils/media';
+ 
 import './RecentBlogsTable.css';
 
 function mapRow(blog) {
@@ -35,7 +35,7 @@ export default function RecentBlogsTable() {
         setLoading(true);
         setError('');
         const limit = 10;
-        const resp = await fetch(`${API_BASE}/api/blogs?page=${page}&limit=${limit}`);
+        const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/blogs?page=${page}&limit=${limit}`);
         const json = await resp.json().catch(() => ({}));
         if (!resp.ok) throw new Error(json?.error || 'Failed to load blogs');
         const list = Array.isArray(json) ? json : (Array.isArray(json?.blogs) ? json.blogs : []);
@@ -88,7 +88,7 @@ export default function RecentBlogsTable() {
     if (!ok) return;
     setDeletingId(id);
     try {
-      const resp = await fetch(`${API_BASE}/api/blogs/${id}`, { method: 'DELETE' });
+      const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/blogs/${id}`, { method: 'DELETE' });
       const json = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(json?.error || 'Failed to delete blog');
       setRows((prev) => prev.filter((r) => r.id !== id));

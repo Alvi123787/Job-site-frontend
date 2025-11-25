@@ -5,7 +5,7 @@ import JobCard from '../components/JobCard';
 import SearchBar from '../components/SearchBar';
 import './Jobs.css';
 import { CATEGORIES } from '../data/categories';
-import { API_BASE } from '../utils/media';
+ 
 
 const Jobs = () => {
   const location = useLocation();
@@ -124,7 +124,7 @@ const Jobs = () => {
         const params = new URLSearchParams(location.search || '');
         const featuredParam = params.get('featured') ?? params.get('feature');
         const featuredQuery = typeof featuredParam === 'string' ? `&featured=${featuredParam}` : '';
-        const resp = await fetch(`${API_BASE}/api/jobs?page=${page}&limit=20${featuredQuery}`);
+        const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs?page=${page}&limit=20${featuredQuery}`);
         if (!resp.ok) { setLoading(false); return; }
         const data = await resp.json();
         const list = Array.isArray(data) ? data : (Array.isArray(data?.jobs) ? data.jobs : []);

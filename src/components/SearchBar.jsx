@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_BASE } from '../utils/media';
+ 
 import './SearchBar.css';
 
 const SearchBar = ({ onSearch, initialQuery = '', initialLocation = '', popularTags = [] }) => {
@@ -22,7 +22,7 @@ const SearchBar = ({ onSearch, initialQuery = '', initialLocation = '', popularT
     const loadPopular = async () => {
       try {
         setLoadingPopular(true);
-        const resp = await fetch(`${API_BASE}/api/analytics/popular-searches?limit=7`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/analytics/popular-searches?limit=7');
         const data = await resp.json();
         const list = Array.isArray(data) ? data : [];
         if (!mounted) return;
@@ -87,7 +87,7 @@ const SearchBar = ({ onSearch, initialQuery = '', initialLocation = '', popularT
         .filter(s => s && s.length >= 3 && !stopwords.has(s));
       const terms = Array.from(new Set([...(tokenize(q)), ...( /remote/i.test(loc) ? ['remote'] : [] )]));
       if (terms.length) {
-        fetch(`${API_BASE}/api/analytics/search`, {
+        fetch('https://job-site-backend-seven.vercel.app/api/analytics/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ terms }),
@@ -111,7 +111,7 @@ const SearchBar = ({ onSearch, initialQuery = '', initialLocation = '', popularT
 
     // Record this quick tag selection
     try {
-      fetch(`${API_BASE}/api/analytics/search`, {
+      fetch('https://job-site-backend-seven.vercel.app/api/analytics/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ terms: [t] }),

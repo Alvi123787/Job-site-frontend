@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import './JobDetail.css'
 import { saveJob, removeJob, isJobSaved, fetchSavedItems } from '../utils/saved'
 import JobStructuredData from '../components/JobStructuredData'
-import { API_BASE } from '../utils/media'
+ 
 
 export default function JobDetail() {
   const { id } = useParams()
@@ -54,7 +54,7 @@ export default function JobDetail() {
     const load = async () => {
       try {
         if (isObjectId(id)) {
-          const resp = await fetch(`${API_BASE}/api/jobs/${id}`)
+          const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs/${id}`)
           if (resp.ok) {
             const data = await resp.json()
             setJob(mapJob(data))
@@ -100,7 +100,7 @@ export default function JobDetail() {
         navigate('/login');
         return;
       }
-      const url = `${API_BASE}/api/jobs/${jobId}/apply`;
+      const url = `https://job-site-backend-seven.vercel.app/api/jobs/${jobId}/apply`;
       const resp = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -172,7 +172,7 @@ export default function JobDetail() {
     }
     ;(async () => {
       try {
-        const resp = await fetch(`${API_BASE}/api/jobs?limit=50`)
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/jobs?limit=50')
         if (!resp.ok) return
         const data = await resp.json()
         const list = Array.isArray(data) ? data : (Array.isArray(data?.jobs) ? data.jobs : [])
@@ -194,7 +194,7 @@ export default function JobDetail() {
         const jobId = job?.id || id;
         if (!token || !jobId) return;
         
-        const resp = await fetch(`${API_BASE}/api/jobs/${jobId}/apply/status`, {
+        const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs/${jobId}/apply/status`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!resp.ok) return;
@@ -252,7 +252,7 @@ export default function JobDetail() {
               const rawLogo = job.company.logo || '/company-placeholder.svg'
               
               const isExternal = /^https?:\/\//i.test(String(rawLogo))
-              const proxied = isExternal ? `${API_BASE}/api/assets/image-proxy?url=${encodeURIComponent(rawLogo)}` : rawLogo
+              const proxied = isExternal ? `https://job-site-backend-seven.vercel.app/api/assets/image-proxy?url=${encodeURIComponent(rawLogo)}` : rawLogo
               return (
                 <img
                   className="company-badge"
@@ -593,7 +593,7 @@ export default function JobDetail() {
                         const rawLogo = jobItem.logo || '/company-placeholder.svg'
                         
                         const isExternal = /^https?:\/\//i.test(String(rawLogo))
-                        const proxied = isExternal ? `${API_BASE}/api/assets/image-proxy?url=${encodeURIComponent(rawLogo)}` : rawLogo
+                        const proxied = isExternal ? `https://job-site-backend-seven.vercel.app/api/assets/image-proxy?url=${encodeURIComponent(rawLogo)}` : rawLogo
                         return (<img src={proxied} alt={`${jobItem.company} logo`} className="latest-logo" />)
                       })()}
                       <div className="latest-text">

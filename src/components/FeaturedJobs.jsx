@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './FeaturedJobs.css';
 import JobCard from './JobCard';
 import { Link } from 'react-router-dom';
-import { API_BASE } from '../utils/media';
+ 
 
 const FeaturedJobs = () => {
   const [featuredJobs, setFeaturedJobs] = useState([]);
@@ -15,7 +15,7 @@ const FeaturedJobs = () => {
       try {
         setLoading(true);
         setError('');
-        const resp = await fetch(`${API_BASE}/api/jobs?featured=true&limit=8`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/jobs?featured=true&limit=8');
         if (!resp.ok) throw new Error('Failed to load featured jobs');
         const data = await resp.json();
         const list = Array.isArray(data) ? data : (Array.isArray(data?.jobs) ? data.jobs : []);

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { 
-  FaEnvelope, 
-  FaLock, 
-  FaEye, 
-  FaEyeSlash, 
-  FaUserPlus,
-  FaKey,
-  FaCheckCircle
+import {
+    FaEnvelope,
+    FaLock,
+    FaEye,
+    FaEyeSlash,
+    FaUserPlus,
+    FaKey,
+    FaCheckCircle
 } from 'react-icons/fa';
 import { login } from '../utils/auth';
 import { fetchProfile } from '../utils/profile';
@@ -26,13 +26,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus({ error: '', loading: true, success: '' });
-        
+
         try {
             const resp = await login({ email: formData.email, password: formData.password });
-            
+
             // Store token immediately
             localStorage.setItem('auth_token', resp.token);
-            
+
             // Hydrate full profile to include role and other fields
             try {
                 const profile = await fetchProfile();
@@ -50,15 +50,15 @@ const Login = () => {
                 // Fallback to login user if profile fails
                 localStorage.setItem('auth_user', JSON.stringify(resp.user));
             }
-            
+
             window.dispatchEvent(new Event('auth-changed'));
             setStatus({ error: '', loading: false, success: 'Login successful! Redirecting...' });
-            
+
             // Redirect after a brief delay to show success message
             setTimeout(() => {
                 navigate('/');
             }, 1000);
-            
+
         } catch (err) {
             setStatus({ error: err.message || 'Login failed. Please check your credentials.', loading: false, success: '' });
         }
@@ -97,7 +97,7 @@ const Login = () => {
                             </div>
                         </div>
                     )}
-                    
+
                     {status.success && (
                         <div className="alert alert-success" role="alert">
                             <FaCheckCircle className="alert-icon" />
@@ -164,8 +164,8 @@ const Login = () => {
                             </Link>
                         </div>
 
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             className="login-button"
                             disabled={status.loading}
                         >

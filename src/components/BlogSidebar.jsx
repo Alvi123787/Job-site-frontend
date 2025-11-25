@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { API_BASE } from '../utils/media';
+ 
 
 const BlogSidebar = ({ activeCategory = 'All', onCategorySelect = () => {} }) => {
   const [categories, setCategories] = useState([]);
@@ -11,7 +11,7 @@ const BlogSidebar = ({ activeCategory = 'All', onCategorySelect = () => {} }) =>
       try {
         setLoading(true);
         setError('');
-        const resp = await fetch(`${API_BASE}/api/blogs/categories`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/blogs/categories');
         const data = await resp.json();
         if (!resp.ok) throw new Error(data?.error || 'Failed to fetch categories');
         const list = Array.isArray(data) ? data : [];

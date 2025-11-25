@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./TopCompanies.css";
-import { API_BASE, resolveImageUrl } from "../utils/media";
+import { resolveImageUrl } from "../utils/media";
 import { useNavigate } from "react-router-dom";
 
 const itemsPerSlide = 4;
@@ -17,12 +17,12 @@ const TopCompanies = () => {
       try {
         setStatus({ loading: true, error: "" });
         // Prefer active companies based on non-expired jobs
-        const resp = await fetch(`${API_BASE}/api/companies?active=true&sort=openPositions&limit=12`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/companies?active=true&sort=openPositions&limit=12');
         if (!resp.ok) throw new Error("Failed to load companies");
         const data = await resp.json();
         let finalList = Array.isArray(data?.companies) ? data.companies : [];
         if (finalList.length === 0) {
-          const alt = await fetch(`${API_BASE}/api/companies?sort=openPositions&limit=12`);
+          const alt = await fetch('https://job-site-backend-seven.vercel.app/api/companies?sort=openPositions&limit=12');
           const altData = await alt.json();
           finalList = Array.isArray(altData?.companies) ? altData.companies : [];
         }

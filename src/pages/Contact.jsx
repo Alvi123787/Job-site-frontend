@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Contact.css';
-import { API_BASE } from '../utils/media';
+ 
 
 const Contact = () => {
   const [form, setForm] = useState({ fullName: '', email: '', subject: '', message: '' });
@@ -14,7 +14,7 @@ const Contact = () => {
     e.preventDefault();
     setStatus({ loading: true, success: null, error: null });
     try {
-      const res = await fetch(`${API_BASE}/api/contact`, {
+      const res = await fetch('https://job-site-backend-seven.vercel.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

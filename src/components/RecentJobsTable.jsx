@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEdit, FaTrash } from 'react-icons/fa';
-import { API_BASE } from '../utils/media';
+ 
 import './RecentJobsTable.css';
 
 function mapRow(job) {
@@ -37,7 +37,7 @@ export default function RecentJobsTable() {
         setLoading(true);
         setError('');
         const limit = 10;
-        const resp = await fetch(`${API_BASE}/api/jobs?page=${page}&limit=${limit}`);
+        const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs?page=${page}&limit=${limit}`);
         const json = await resp.json().catch(() => ({}));
         if (!resp.ok) throw new Error(json?.error || 'Failed to load jobs');
         const list = Array.isArray(json) ? json : (Array.isArray(json?.jobs) ? json.jobs : []);
@@ -90,7 +90,7 @@ export default function RecentJobsTable() {
     if (!ok) return;
     setDeletingId(id);
     try {
-      const resp = await fetch(`${API_BASE}/api/jobs/${id}`, { method: 'DELETE' });
+      const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs/${id}`, { method: 'DELETE' });
       const json = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(json?.error || 'Failed to delete job');
       setRows((prev) => prev.filter((r) => r.id !== id));

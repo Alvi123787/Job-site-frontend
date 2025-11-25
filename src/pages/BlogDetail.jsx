@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { API_BASE, resolveImageUrl } from '../utils/media';
+import { resolveImageUrl } from '../utils/media';
 import { 
   FaCalendarAlt, 
   FaUser, 
@@ -33,7 +33,7 @@ export default function BlogDetail() {
     const load = async () => {
       try {
         setStatus({ loading: true, error: '' });
-        const resp = await fetch(`${API_BASE}/api/blogs/${id}`);
+        const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/blogs/${id}`);
         const data = await resp.json();
         if (!resp.ok) throw new Error(data?.error || 'Failed to load blog');
         setBlog(data);
@@ -52,7 +52,7 @@ export default function BlogDetail() {
 
         // Load related by category or tags
         try {
-          const listResp = await fetch(`${API_BASE}/api/blogs`);
+          const listResp = await fetch('https://job-site-backend-seven.vercel.app/api/blogs');
           const list = await listResp.json();
           const byCategory = (list || []).filter((b) => b._id !== data._id && b.category === data.category);
           let candidates = byCategory;
@@ -76,8 +76,8 @@ export default function BlogDetail() {
     if (!id) return;
     (async () => {
       try {
-        await fetch(`${API_BASE}/api/blogs/${id}/view`, { method: 'POST' });
-        const cResp = await fetch(`${API_BASE}/api/blogs/${id}/views`);
+        await fetch(`https://job-site-backend-seven.vercel.app/api/blogs/${id}/view`, { method: 'POST' });
+        const cResp = await fetch(`https://job-site-backend-seven.vercel.app/api/blogs/${id}/views`);
         const cData = await cResp.json();
         const views = Number(cData?.views || 0);
         setBlog((b) => ({ ...(b || {}), views }));

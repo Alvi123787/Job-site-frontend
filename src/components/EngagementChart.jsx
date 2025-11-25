@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ResponsiveContainer, ComposedChart, Line, Area, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { API_BASE } from '../utils/media';
+ 
 import './Dashboard.css';
 
 const formatDateLabel = (iso) => {
@@ -21,14 +21,14 @@ export default function EngagementChart() {
   const [customEnd, setCustomEnd] = useState('');
 
   const queryForRange = useMemo(() => {
-    if (range === 'today') return `${API_BASE}/api/analytics/engagement?days=1`;
-    if (range === 'week') return `${API_BASE}/api/analytics/engagement?days=7`;
-    if (range === 'month') return `${API_BASE}/api/analytics/engagement?days=30`;
+    if (range === 'today') return 'https://job-site-backend-seven.vercel.app/api/analytics/engagement?days=1';
+    if (range === 'week') return 'https://job-site-backend-seven.vercel.app/api/analytics/engagement?days=7';
+    if (range === 'month') return 'https://job-site-backend-seven.vercel.app/api/analytics/engagement?days=30';
     if (range === 'custom' && customStart && customEnd) {
-      return `${API_BASE}/api/analytics/engagement?start=${encodeURIComponent(customStart)}&end=${encodeURIComponent(customEnd)}`;
+      return `https://job-site-backend-seven.vercel.app/api/analytics/engagement?start=${encodeURIComponent(customStart)}&end=${encodeURIComponent(customEnd)}`;
     }
     // default
-    return `${API_BASE}/api/analytics/engagement?days=14`;
+    return 'https://job-site-backend-seven.vercel.app/api/analytics/engagement?days=14';
   }, [range, customStart, customEnd]);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
-import { API_BASE } from '../utils/media';
+ 
 import './Dashboard.css';
 
 const JOB_TYPES = ['Full-time', 'Part-time', 'Remote', 'Internship'];
@@ -50,8 +50,8 @@ export default function TypeBreakdownChart() {
         setLoading(true);
         setError('');
         const [jobsResp, blogsResp] = await Promise.all([
-          fetch(`${API_BASE}/api/jobs?page=1&limit=100`),
-          fetch(`${API_BASE}/api/blogs`),
+          fetch('https://job-site-backend-seven.vercel.app/api/jobs?page=1&limit=100'),
+          fetch('https://job-site-backend-seven.vercel.app/api/blogs'),
         ]);
         const jobsJson = await jobsResp.json().catch(() => ({}));
         const blogsJson = await blogsResp.json().catch(() => ([]));

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { API_BASE } from '../utils/media';
+ 
 import './JobPostForm.css';
 import { COUNTRIES } from '../data/countries';
 import { CATEGORIES } from '../data/categories';
@@ -125,7 +125,7 @@ const JobPostForm = ({ onPublished }) => {
       (async () => {
         try {
           setJobPostStatus({ loading: true, message: '' });
-          const resp = await fetch(`${API_BASE}/api/jobs/${editId}`);
+          const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs/${editId}`);
           const job = await resp.json();
           if (!resp.ok) throw new Error(job?.error || 'Failed to load job');
           const toDateInput = (v) => v ? new Date(v).toISOString().slice(0,10) : '';
@@ -240,7 +240,7 @@ const JobPostForm = ({ onPublished }) => {
     let backendSaved = null;
     try {
       const method = jobPostEditingId ? 'PUT' : 'POST';
-      const url = jobPostEditingId ? `${API_BASE}/api/jobs/${jobPostEditingId}` : `${API_BASE}/api/jobs`;
+      const url = jobPostEditingId ? `https://job-site-backend-seven.vercel.app/api/jobs/${jobPostEditingId}` : `https://job-site-backend-seven.vercel.app/api/jobs`;
       const resp = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },

@@ -1,5 +1,3 @@
-import { API_BASE } from './media';
-
 const LS_JOBS = 'saved_jobs';
 const LS_BLOGS = 'saved_blogs';
 
@@ -20,7 +18,7 @@ export async function saveJob(job) {
   const id = job?._id || job?.id;
   if (!id) throw new Error('Job id missing');
   if (token) {
-    const res = await fetch(`${API_BASE}/api/user/save-job/${id}`, {
+    const res = await fetch(`https://job-site-backend-seven.vercel.app/api/user/save-job/${id}`, {
       method: 'POST', headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -39,7 +37,7 @@ export async function removeJob(jobId) {
   const id = jobId;
   if (!id) return false;
   if (token) {
-    const res = await fetch(`${API_BASE}/api/user/remove-saved-job/${id}`, {
+    const res = await fetch(`https://job-site-backend-seven.vercel.app/api/user/remove-saved-job/${id}`, {
       method: 'DELETE', headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -62,7 +60,7 @@ export async function saveBlog(blog) {
   const id = blog?._id || blog?.id;
   if (!id) throw new Error('Blog id missing');
   if (token) {
-    const res = await fetch(`${API_BASE}/api/user/save-blog/${id}`, {
+    const res = await fetch(`https://job-site-backend-seven.vercel.app/api/user/save-blog/${id}`, {
       method: 'POST', headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -81,7 +79,7 @@ export async function removeBlog(blogId) {
   const id = blogId;
   if (!id) return false;
   if (token) {
-    const res = await fetch(`${API_BASE}/api/user/remove-saved-blog/${id}`, {
+    const res = await fetch(`https://job-site-backend-seven.vercel.app/api/user/remove-saved-blog/${id}`, {
       method: 'DELETE', headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -102,7 +100,7 @@ export function isBlogSaved(blogId) {
 export async function fetchSavedItems() {
   const token = getToken();
   if (token) {
-    const res = await fetch(`${API_BASE}/api/user/saved-items`, {
+    const res = await fetch('https://job-site-backend-seven.vercel.app/api/user/saved-items', {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();

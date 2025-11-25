@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import BlogCard from '../components/BlogCard';
 import { Link } from 'react-router-dom';
-import { resolveImageUrl, API_BASE } from '../utils/media';
+import { resolveImageUrl } from '../utils/media';
 import './BlogPage.css';
 import BlogSidebar from '../components/BlogSidebar';
 
@@ -22,7 +22,7 @@ const BlogPage = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const resp = await fetch(`${API_BASE}/api/blogs`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/blogs');
         if (!resp.ok) throw new Error('Failed to fetch blogs');
         const data = await resp.json();
         const list = Array.isArray(data) ? data : [];
@@ -215,7 +215,7 @@ const BlogPage = () => {
                         if (!ok) { setNlStatus({ type: 'error', message: 'Please enter a valid email.', loading: false }); return; }
                         setNlStatus({ type: '', message: '', loading: true });
                         try {
-                          const resp = await fetch(`${API_BASE}/api/subscribe`, {
+                          const resp = await fetch('https://job-site-backend-seven.vercel.app/api/subscribe', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ email, type: 'blog' }),

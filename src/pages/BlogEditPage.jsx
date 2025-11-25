@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { API_BASE } from '../utils/media';
+ 
 
 export default function BlogEditPage() {
   const { id } = useParams();
@@ -12,7 +12,7 @@ export default function BlogEditPage() {
     let mounted = true;
     (async () => {
       try {
-        const resp = await fetch(`${API_BASE}/api/blogs/${id}`);
+        const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/blogs/${id}`);
         const json = await resp.json().catch(() => ({}));
         if (!resp.ok) throw new Error(json?.error || 'Failed to load blog');
         const data = json || {};
@@ -43,7 +43,7 @@ export default function BlogEditPage() {
         tags: String(form.tags || '').split(',').map((t) => t.trim()).filter(Boolean),
         publishedAt: form.publishedAt ? new Date(form.publishedAt) : undefined,
       };
-      const resp = await fetch(`${API_BASE}/api/blogs/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/blogs/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       const json = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(json?.error || 'Failed to update blog');
       navigate('/admin/recent-blogs');

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import './Footer.css';
 import { COUNTRIES } from '../data/countries';
-import { API_BASE } from '../utils/media';
+ 
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -17,7 +17,7 @@ const Footer = () => {
         if (!ok) { setStatus({ type: 'error', message: 'Please enter a valid email.', loading: false }); return; }
         setStatus({ type: '', message: '', loading: true });
         try {
-            const resp = await fetch(`${API_BASE}/api/subscribe`, {
+            const resp = await fetch('https://job-site-backend-seven.vercel.app/api/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: eaddr, country, type: 'job' }),

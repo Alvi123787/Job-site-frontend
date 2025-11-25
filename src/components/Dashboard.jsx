@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import './Dashboard.css';
 // Chart moved to dedicated EngagementChart component
-import { API_BASE } from '../utils/media';
+ 
 import EngagementChart from './EngagementChart.jsx';
 
 const Dashboard = () => {
@@ -121,9 +121,9 @@ const Dashboard = () => {
         setStatus({ loading: true, error: '' });
         // Fetch job stats, blogs total, and analytics engagement series
         const [statsResp, blogsResp, analyticsResp] = await Promise.all([
-          fetch(`${API_BASE}/api/jobs/stats`),
-          fetch(`${API_BASE}/api/blogs`),
-          fetch(`${API_BASE}/api/analytics/engagement?days=14`),
+          fetch('https://job-site-backend-seven.vercel.app/api/jobs/stats'),
+          fetch('https://job-site-backend-seven.vercel.app/api/blogs'),
+          fetch('https://job-site-backend-seven.vercel.app/api/analytics/engagement?days=14'),
         ]);
 
         const statsData = await statsResp.json();

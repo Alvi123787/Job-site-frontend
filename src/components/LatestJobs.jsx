@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaClock, FaArrowRight, FaDollarSign } from 'react-icons/fa';
 import './LatestJob.css';
-import { API_BASE } from '../utils/media';
+ 
 
 const LatestJobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -49,7 +49,7 @@ const LatestJobs = () => {
         setLoading(true);
         setError('');
         // Fetch backend jobs
-        const resp = await fetch(`${API_BASE}/api/jobs?limit=50`);
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/jobs?limit=50');
         if (!resp.ok) throw new Error('Failed to fetch latest jobs');
         const data = await resp.json();
         const backend = Array.isArray(data) ? data : (Array.isArray(data?.jobs) ? data.jobs : []);

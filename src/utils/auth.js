@@ -1,7 +1,5 @@
-import { API_BASE } from './media';
-
 export async function signup(payload) {
-  const res = await fetch(`${API_BASE}/api/auth/signup`, {
+  const res = await fetch('https://job-site-backend-seven.vercel.app/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -12,7 +10,7 @@ export async function signup(payload) {
 }
 
 export async function login(payload) {
-  const res = await fetch(`${API_BASE}/api/auth/login`, {
+  const res = await fetch('https://job-site-backend-seven.vercel.app/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -23,7 +21,7 @@ export async function login(payload) {
 }
 
 export async function forgotPassword(payload) {
-  const res = await fetch(`${API_BASE}/api/auth/forgot-password`, {
+  const res = await fetch('https://job-site-backend-seven.vercel.app/api/auth/forgot-password', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -34,7 +32,7 @@ export async function forgotPassword(payload) {
 }
 
 export async function resetPassword(token, payload) {
-  const res = await fetch(`${API_BASE}/api/auth/reset-password/${token}`, {
+  const res = await fetch(`https://job-site-backend-seven.vercel.app/api/auth/reset-password/${token}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

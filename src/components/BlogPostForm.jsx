@@ -11,7 +11,7 @@ import {
   FaExclamationTriangle
 } from 'react-icons/fa';
 import './BlogPostForm.css';
-import { resolveImageUrl, API_BASE } from '../utils/media';
+import { resolveImageUrl } from '../utils/media';
 
 const blogPostInitialState = () => ({
   title: '',
@@ -97,7 +97,7 @@ export default function BlogPostForm({ onPublished, onCancel }) {
         publishedAt: blogPostForm.publishedAt ? new Date(blogPostForm.publishedAt) : undefined,
       };
       
-      const resp = await fetch(`${API_BASE}/api/blogs`, {
+      const resp = await fetch('https://job-site-backend-seven.vercel.app/api/blogs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
