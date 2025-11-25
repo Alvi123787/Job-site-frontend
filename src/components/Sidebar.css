@@ -1,0 +1,333 @@
+/* Sidebar.css */
+.job-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.job-sidebar--open {
+  width: 250px;
+}
+
+.job-sidebar--closed {
+  width: 80px;
+}
+
+/* Sidebar Header */
+.job-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  height: 70px;
+  background: white;
+}
+
+.job-sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1E3A8A;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.job-sidebar__brandimg {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.job-sidebar--closed .job-sidebar__logo {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.job-sidebar__toggle {
+  background: #fff;
+  border: 1px solid rgba(59,130,246,0.20);
+  color: #1E3A8A;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 999px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(59,130,246,0.12);
+}
+
+.job-sidebar__toggle:hover {
+  background: linear-gradient(135deg, #3B82F6, #06B6D4);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(59,130,246,0.22);
+  transform: translateY(-1px);
+}
+
+.job-sidebar__toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.3);
+}
+
+/* Navigation */
+.job-sidebar__nav {
+  flex: 1;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.job-sidebar__item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: #1E293B;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 16px;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+}
+
+.job-sidebar__item:hover {
+  background: #F8FAFC;
+  color: #1E3A8A;
+  padding-left: 24px;
+}
+
+.job-sidebar__item--active {
+  background: linear-gradient(135deg, #3B82F6, #06B6D4);
+  color: white;
+  border-right: 4px solid #1E3A8A;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.job-sidebar__item--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: #1E3A8A;
+  border-radius: 0 2px 2px 0;
+}
+
+.job-sidebar__icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.job-sidebar__item:hover .job-sidebar__icon {
+  transform: scale(1.1);
+}
+
+.job-sidebar__item--active .job-sidebar__icon {
+  transform: scale(1.1);
+}
+
+.job-sidebar__label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.job-sidebar--closed .job-sidebar__label {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+/* Sidebar Footer */
+.job-sidebar__footer {
+  padding: 20px;
+  border-top: 1px solid #e2e8f0;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.job-sidebar--closed .job-sidebar__footer {
+  padding: 20px 10px;
+}
+
+.job-sidebar__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.job-sidebar--closed .job-sidebar__user {
+  justify-content: center;
+}
+
+.job-sidebar__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3B82F6, #06B6D4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.job-sidebar__user-info {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.job-sidebar--closed .job-sidebar__user-info {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.job-sidebar__user-name {
+  font-weight: 600;
+  color: #1E293B;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.job-sidebar__user-role {
+  font-size: 0.75rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .job-sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .job-sidebar--open {
+    transform: translateX(0);
+    width: 280px;
+  }
+  
+  .job-sidebar--closed {
+    transform: translateX(-100%);
+  }
+}
+
+/* Animation for smooth transitions */
+@keyframes job-sidebar-slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.job-sidebar__item {
+  animation: job-sidebar-slideIn 0.3s ease-out;
+}
+
+/* Scrollbar Styling */
+.job-sidebar__nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.job-sidebar__nav::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+
+.job-sidebar__nav::-webkit-scrollbar-thumb {
+  background: #3B82F6;
+  border-radius: 10px;
+}
+
+.job-sidebar__nav::-webkit-scrollbar-thumb:hover {
+  background: #1E3A8A;
+}
+
+/* Tooltip for closed sidebar */
+.job-sidebar--closed .job-sidebar__item {
+  position: relative;
+}
+
+.job-sidebar--closed .job-sidebar__item::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1E293B;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.job-sidebar--closed .job-sidebar__item:hover::after {
+  opacity: 1;
+  visibility: visible;
+  left: calc(100% + 10px);
+}
+
+/* Inline SVG icons support */
+.job-sidebar__icon svg {
+  width: 24px;
+  height: 24px;
+  color: #1E293B;
+}
+
+/* Ensure icon color follows item state */
+.job-sidebar__item:hover .job-sidebar__icon svg {
+  color: #1E3A8A;
+}
+
+.job-sidebar__item--active .job-sidebar__icon svg {
+  color: #ffffff;
+}
+
+/* Toggle chevrons inherit color */
+.job-sidebar__toggle svg {
+  color: currentColor;
+  width: 16px;
+  height: 16px;
+}

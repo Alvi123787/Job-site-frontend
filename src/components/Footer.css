@@ -1,0 +1,209 @@
+.footer {
+    background: var(--text);
+    color: white;
+    padding: 80px 0 30px;
+    position: relative;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 60px;
+    margin-bottom: 50px;
+}
+
+/* Company Section */
+.footer-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.footer-description {
+    color: #94A3B8;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: var(--accent-gradient);
+    transform: translateY(-3px);
+}
+
+/* Quick Links Section */
+.footer-subtitle {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: #94A3B8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+/* Newsletter Section */
+.newsletter-text {
+    color: #94A3B8;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap; /* allow wrapping so inputs don’t get squashed */
+}
+
+.newsletter-input {
+    flex: 1 1 300px; /* grow, shrink, and prefer 300px */
+    min-width: 220px; /* prevent the tiny pill effect */
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #E5E7EB;
+    font-size: 0.9rem;
+}
+
+.newsletter-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.newsletter-select {
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #E5E7EB; /* light gray for closed state label */
+    font-size: 0.9rem;
+    flex: 0 0 240px; /* keep reasonable width next to email input */
+    appearance: none;
+}
+
+.newsletter-select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Ensure options are readable in native dropdown */
+.newsletter-select option {
+    color: #0F172A; /* slate-900 */
+    background: #FFFFFF; /* typical dropdown background */
+}
+
+/* Improve placeholder visibility */
+.newsletter-input::placeholder {
+    color: #cbd5e1; /* slate-300 */
+}
+
+.newsletter-button {
+    padding: 0.8rem 1.5rem;
+    flex: 0 0 auto; /* keep button size stable */
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.newsletter-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.newsletter-status {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+}
+.newsletter-status.success { color: #34D399; }
+.newsletter-status.error { color: #F87171; }
+
+/* Copyright Section */
+.footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.copyright {
+    color: #94A3B8;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,295 @@
+/* Base card container */
+.job-card-square {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  min-height: 220px;
+}
+
+.job-card-minimal { /* refined spacing for the new design */
+  border-radius: 20px;
+}
+
+.job-card-square:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Removed appear animation for cards to avoid flicker */
+
+/* Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 1rem 1.25rem 0.25rem 1.25rem;
+}
+
+.brand-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.brand-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Company logo image replacing the left blue shape */
+.company-logo-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  object-fit: contain;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.header-right { margin-left: auto; }
+.save-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--border-light);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-weight: 600;
+}
+.save-toggle svg { color: var(--text-light); }
+.save-toggle.saved { background: #eee; }
+.save-toggle.saved svg { color: var(--primary); }
+
+.title-block { flex: 1; min-width: 0; }
+.job-title-pro {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.company-line {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.company-name-pro { font-weight: 600; color: var(--primary); }
+.category-chip { display: inline-flex; align-items: center; gap: 6px; }
+.new-pill {
+  margin-left: auto;
+  background: #10B981;
+  color: white;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Content area */
+.card-content {
+  padding: 0.25rem 1.25rem 1rem 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.company-row { display: inline-flex; gap: 8px; align-items: baseline; }
+.posted-inline { color: var(--text-light); font-size: 0.85rem; }
+
+/* Meta chips */
+.meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0.75rem 0 1rem 0;
+}
+
+.chip {
+  background: var(--border-light);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.chip-icon { color: var(--secondary); }
+
+/* Divider */
+.card-divider {
+  height: 1px;
+  background: var(--border-light);
+}
+
+.dot { color: var(--text-light); }
+
+/* Footer */
+.card-bottom {
+  padding-top: 0.75rem;
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+.salary-block { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.salary-text { font-size: 1rem; font-weight: 700; color: var(--text); }
+.bottom-location { color: var(--text-light); font-size: 0.9rem; white-space: normal; overflow-wrap: anywhere; }
+.apply-before { color: var(--text-light); font-size: 0.85rem; }
+
+.detail-btn-black {
+  background: var(--accent-gradient);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(30, 64, 175, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  align-self: end;
+}
+.detail-btn-black:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(30, 64, 175, 0.35); filter: brightness(1.05); }
+.detail-btn-black.disabled { opacity: 0.6; pointer-events: none; }
+
+@media (max-width: 480px) {
+  .card-bottom { grid-template-columns: 1fr; }
+  .detail-btn-black { width: 100%; text-align: center; }
+}
+
+/* Sentinel spacer for infinite scroll */
+.infinite-scroll-sentinel {
+  width: 100%;
+  height: 60px;
+}
+
+/* Skeleton (reuse class name) */
+.job-card-skeleton { min-height: 180px; }
+
+/* Keep existing legacy styles for other components if referenced elsewhere */
+.job-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px var(--shadow-color);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
+}
+
+.job-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px var(--shadow-color);
+}
+
+.job-card-header {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.company-logo {
+    width: 60px;
+    height: 60px;
+    background: var(--accent-gradient);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-weight: 600;
+}
+
+.job-card-title h3 {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.company-name {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.job-card-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.detail-icon {
+    color: var(--secondary);
+}
+
+.job-card-footer {
+    display: flex;
+    gap: 12px;
+}
+
+.apply-btn, .save-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.apply-btn {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    flex: 2;
+}
+
+.save-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    flex: 1;
+}
+
+.apply-btn:hover {
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.save-btn:hover {
+    background: var(--border-light);
+}

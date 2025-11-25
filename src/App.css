@@ -1,0 +1,71 @@
+:root {
+  --primary: #1E3A8A;         /* Indigo Blue */
+  --secondary: #3B82F6;       /* Bright Blue */
+  --accent: #06B6D4;          /* Cyan Aqua */
+  --background: #F8FAFC;      /* Very Light Gray */
+  --text: #1E293B;            /* Slate Gray */
+  --accent-gradient: linear-gradient(135deg, #3B82F6, #06B6D4);
+  --shadow-color: rgba(59, 130, 246, 0.2);
+  --background-shadow: rgba(241, 245, 249, 0.9);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  line-height: 1.6;
+}
+
+.App {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.main-content {
+  padding: 2rem;
+  min-height: calc(100vh - 80px);
+  background-color: var(--background);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background);
+}
+
+h1 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+p {
+  color: var(--text);
+  font-size: 1.1rem;
+  opacity: 0.9;
+  line-height: 1.7;
+}
+
+/* Responsive design for main content */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .container {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+}

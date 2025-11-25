@@ -1,0 +1,30 @@
+:root {
+  --primary: #1E3A8A;         /* Indigo Blue */
+  --secondary: #3B82F6;       /* Bright Blue */
+  --accent: #06B6D4;          /* Cyan Aqua */
+  --background: #F8FAFC;      /* Very Light Gray */
+  --text: #1E293B;            /* Slate Gray */
+  --accent-gradient: linear-gradient(135deg, #3B82F6, #06B6D4);
+  --shadow-color: rgba(59, 130, 246, 0.2);
+  --background-shadow: rgba(241, 245, 249, 0.9);
+
+  /* Global UI tokens (used across pages/components) */
+  --border: #E2E8F0;
+  --border-light: rgba(226, 232, 240, 0.6);
+  --text-secondary: #64748B;
+  --card: var(--card-bg);
+
+  /* Dashboard theme variables */
+  --navbar-height: 70px;
+  --content-bg: #F5F7FB;
+  --sidebar-bg: #1e1e2d;
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --text-primary: #111827;
+  --text-muted: #6B7280;
+  --card-bg: #ffffff;
+  --success: #16a34a;
+  --danger: #ef4444;
+  --color-primary: #ef4444; /* brand red used in dashboard buttons */
+}
+
+/* Dark theme variables removed to enforce light theme globally */

@@ -1,0 +1,113 @@
+.home-page {
+  --primary: #1E3A8A;
+  --secondary: #3B82F6;
+  --accent: #06B6D4;
+  --background: #FFFFFF;
+  --text: #1E293B;
+  --text-secondary: #64748B;
+  --text-light: #94A3B8;
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 30px rgba(59, 130, 246, 0.15);
+  --accent-gradient: linear-gradient(135deg, #3B82F6, #06B6D4);
+}
+
+.home-page .featured-jobs-section {
+  padding: 100px 0;
+  background: linear-gradient(to bottom, #F8FAFC, #EFF6FF);
+}
+
+.home-page .featured-jobs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.home-page .featured-jobs-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.home-page .featured-jobs-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+
+.home-page .featured-jobs-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.home-page .featured-jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .home-page .featured-jobs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page .featured-jobs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards now use JobCard styles; avoid overriding them here */
+
+/* View All Button */
+.home-page .view-all-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.home-page .view-all-button {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.home-page .view-all-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.home-page .button-arrow {
+  transition: transform 0.3s ease;
+}
+
+.home-page .view-all-button:hover .button-arrow {
+  transform: translateX(4px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .home-page .featured-jobs-title { font-size: 2.4rem; }
+}
+
+@media (max-width: 680px) {
+  .home-page .featured-jobs-grid { max-width: 400px; margin: 0 auto 2rem; }
+  .home-page .featured-jobs-title { font-size: 2rem; }
+  .home-page .featured-jobs-subtitle { font-size: 1.1rem; }
+}

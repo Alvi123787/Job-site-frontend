@@ -1,0 +1,703 @@
+/* Job Detail Page Styles - Professional & Clean */
+.job-detail {
+  background: linear-gradient(to bottom, #FFFFFF, #F8FAFC);
+  color: var(--text);
+  padding: 2.5rem 1rem; /* extra top spacing from navbar */
+  min-height: 100vh;
+}
+
+.job-detail .job-header {
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.job-detail .job-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.job-detail .title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.job-detail .company-badge {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: white;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.job-detail .title-content {
+  flex: 1;
+}
+
+.job-detail .job-title {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.job-detail .company-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.job-detail .company-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.job-detail .company-industry {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.job-detail .actions {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 200;
+}
+
+.job-detail .save-btn, .job-detail .apply-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  border: none;
+  cursor: pointer;
+  min-height: 48px;
+  position: relative;
+  white-space: nowrap; /* keep button text on a single line */
+}
+
+.job-detail .save-btn {
+  background: white;
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+
+.job-detail .save-btn:hover {
+  border-color: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Animated Saved state */
+.job-detail .save-btn .bookmark-icon {
+  transition: transform 0.2s ease, color 0.2s ease, fill 0.2s ease;
+}
+
+.job-detail .save-btn.active {
+  background-image: var(--accent-gradient);
+  color: white;
+  border-color: var(--secondary);
+  box-shadow: 0 6px 16px var(--shadow-color);
+  animation: save-pop 200ms ease-out;
+}
+
+.job-detail .save-btn.active .bookmark-icon {
+  transform: scale(1.15);
+}
+
+.job-detail .save-btn.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.25);
+  pointer-events: none;
+  animation: save-ripple 600ms ease-out;
+}
+
+@keyframes save-pop {
+  0% { transform: scale(0.98); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes save-ripple {
+  0% { opacity: 0.35; transform: scale(0.98); }
+  100% { opacity: 0; transform: scale(1.25); }
+}
+
+.job-detail .apply-btn {
+  background-image: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 16px var(--shadow-color);
+}
+
+.job-detail .apply-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--shadow-color);
+  filter: brightness(1.05);
+}
+
+.job-detail .job-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.job-detail .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.job-detail .meta-icon {
+  font-size: 1.25rem;
+}
+
+.job-detail .meta-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.job-detail .meta-label {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.job-detail .meta-value {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.job-detail .meta-subvalue {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 2px;
+}
+
+.job-detail .job-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 380px; /* Content left, sidebar right */
+  gap: 2rem;
+  align-items: start; /* prevent overlapping by aligning to start */
+}
+
+.job-detail .details {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.job-detail .detail-section {
+  margin-bottom: 2rem;
+}
+
+.job-detail .detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.job-detail .section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--text);
+  position: relative;
+  padding-bottom: 0; /* override global section-title padding */
+  border-bottom: none; /* prevent full-width underline from other pages */
+}
+
+.job-detail .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0; /* align underline with left edge of heading */
+  transform: none;
+  width: 56px;
+  height: 3px;
+  background: var(--secondary);
+  border-radius: 2px;
+}
+
+.job-detail .section-text {
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.job-detail .bullet-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.job-detail .bullet-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Chip list for skills */
+.job-detail .chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.job-detail .chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--border-light);
+  color: var(--text);
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+}
+
+.job-detail .grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.job-detail .details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.job-detail .detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.job-detail .detail-label {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.job-detail .detail-value {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.job-detail .benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.75rem;
+}
+
+.job-detail .benefit-item {
+  background: #f0f9ff;
+  border: 1px solid #e0f2fe;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.job-detail .benefit-text {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.job-detail .apply-section {
+  text-align: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0 0; /* keep spacing inside card, avoid negative overlap */
+}
+
+.job-detail .apply-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.job-detail .apply-btn.primary {
+  background-image: var(--accent-gradient);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+.job-detail .apply-btn.secondary {
+  background: white;
+  color: var(--text);
+  border: 2px solid var(--border);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Sidebar Styles */
+.job-detail .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative; /* ensure normal stacking context */
+  z-index: 0; /* avoid overlaying other sections */
+  height: auto; /* override any global fixed heights */
+  max-height: none; /* ensure no internal scrollbar */
+  overflow: visible; /* allow content to expand naturally */
+  padding: 0.75rem; /* sidebar inner spacing so cards don't touch edges */
+}
+
+.job-detail .company-card, .job-detail .card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* subtle hover effect */
+}
+
+.job-detail .company-card:hover, .job-detail .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.job-detail .company-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.job-detail .company-card-header-text { text-align: center; }
+
+.job-detail .company-card-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.job-detail .company-card-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.job-detail .company-card-industry {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.job-detail .company-card-body { margin-top: 0.5rem; }
+
+.job-detail .company-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.job-detail .company-field:last-child {
+  border-bottom: none;
+}
+
+.job-detail .field-label {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.job-detail .field-value {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.job-detail .field-subvalue {
+  display: block;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.job-detail .company-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.job-detail .company-link:hover {
+  color: #1e40af;
+  transform: translateX(2px);
+}
+
+.job-detail .company-cta-wrap { margin-top: 0.75rem; display: flex; }
+.job-detail .company-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none; /* remove underline on anchor */
+}
+.job-detail .company-cta:hover { box-shadow: 0 6px 16px var(--shadow-color); transform: translateY(-2px); text-decoration: none; }
+.job-detail .company-cta.disabled { opacity: 0.6; pointer-events: none; }
+
+.job-detail .salary-card .card-title {
+  margin-bottom: 1rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.2px;
+}
+
+.job-detail .salary-range {
+  margin-bottom: 0.75rem;
+}
+
+.job-detail .salary-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  display: block;
+}
+
+.job-detail .salary-period {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.job-detail .salary-note {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.job-detail .salary-meta {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.job-detail .salary-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.job-detail .salary-meta-item .meta-icon {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary);
+  background: var(--border-light);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.job-detail .salary-meta .meta-text { font-weight: 500; }
+
+/* Salary card accent top border for a polished feel */
+.job-detail .salary-card {
+  position: relative;
+}
+.job-detail .salary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-gradient);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Remove divider on last meta item */
+.job-detail .salary-meta-item:last-child { border-bottom: none; }
+
+.job-detail .latest-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.job-detail .latest-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.job-detail .latest-item:last-child {
+  border-bottom: none;
+}
+
+.job-detail .latest-link {
+  display: flex;
+  align-items: center; /* vertically align icons and text */
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+}
+
+.job-detail .latest-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.job-detail .latest-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.job-detail .latest-text {
+  flex: 1;
+}
+
+.job-detail .latest-title {
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.job-detail .latest-company {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.job-detail .latest-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.job-detail .latest-empty { color: var(--muted); font-size: 0.95rem; }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .job-detail .job-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  /* Reset manual grid placement for stacked layout */
+  .job-detail .details, .job-detail .sidebar { grid-column: auto; }
+  .job-detail .sidebar { order: 2; }
+}
+
+@media (max-width: 768px) {
+  .job-detail .job-header {
+    padding: 1.5rem;
+  }
+  
+  .job-detail .job-header-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+  
+  .job-detail .actions {
+    justify-content: stretch;
+  }
+  
+  .job-detail .save-btn, .job-detail .apply-btn {
+    flex: 1;
+  }
+  
+  .job-detail .grid-two {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .job-detail .apply-actions {
+    flex-direction: column;
+  }
+  
+  .job-detail .job-meta-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .job-detail .details {
+    padding: 1.5rem;
+  }
+  
+  .job-detail .apply-section {
+    margin: 2rem -1.5rem -1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .job-detail {
+    padding: 1rem 0.5rem;
+  }
+  
+  .job-detail .job-title {
+    font-size: 1.5rem;
+  }
+  
+  .job-detail .company-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+/* Disable sticky to prevent overlap during scroll */
+@media (min-width: 1025px) {
+  .job-detail .sidebar {
+    position: static;
+    top: auto;
+    align-self: auto;
+  }
+}

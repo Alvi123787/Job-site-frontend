@@ -1,0 +1,12 @@
+.calendar-page {
+  padding: 16px;
+}
+
+.calendar-page__title {
+  margin: 0 0 4px;
+}
+
+.calendar-page__subtitle {
+  margin: 0 0 12px;
+  color: #6b7280;
+}

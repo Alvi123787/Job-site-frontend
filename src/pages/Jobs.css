@@ -1,0 +1,221 @@
+/* Add to existing JobCard.css */
+
+/* Layout for Jobs page */
+.jobs-page {
+  padding: 60px 0;
+  background: #FAF7F2;
+}
+
+/* Header / Title Section */
+.jobs-header {
+  padding: 40px 0 20px 0;
+  background: linear-gradient(to bottom, #FFFFFF, #F8FAFC);
+}
+
+.jobs-header-container {
+  max-width: 1400px; /* aur zyada usable width */
+  margin: 0 auto;
+  padding: 0 0.5rem; /* dono sides ka padding further kam */
+  text-align: center;
+}
+
+.jobs-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.jobs-title-highlight {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
+.jobs-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+
+.jobs-count-banner {
+  display: inline-block;
+  margin: 0 auto 24px auto;
+  background: var(--background);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+
+.jobs-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+/* Ensure sidebar and cards create a clean two-column layout */
+/* Fixed sidebar column */
+.filters-column {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 360px;
+  width: 360px;
+}
+.filters-column .filter-sidebar {
+  position: sticky;
+  top: 0;
+  height: auto; /* allow natural height based on content */
+  overflow: visible; /* no internal scroll; page handles scrolling */
+  background: #fff;
+  border-right: 1px solid #eaeaea;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+.cards-column {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+/* Large screens: 12-column split */
+/* Hide sidebar column on tablet and below; use overlay */
+@media (max-width: 991px) {
+  .filters-column { display: none; }
+}
+
+/* Cards grid: 4 per row */
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px; /* cards ke beech spacing thoda kam */
+}
+
+@media (max-width: 1200px) {
+  .jobs-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .jobs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .jobs-grid { grid-template-columns: 1fr; }
+}
+
+/* Jobs list container spacing */
+.jobs-list-container { padding-bottom: 24px; }
+
+/* Sort Bar */
+.sort-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: var(--shadow);
+}
+
+.results-info { color: var(--text-secondary); font-weight: 500; }
+.sort-label { color: var(--text-light); margin-right: 8px; }
+.sort-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+}
+
+/* Mobile/tablet Filters toggle button */
+.filters-toggle {
+  margin-right: 10px;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+@media (min-width: 992px) {
+  .filters-toggle { display: none; }
+}
+
+/* Overlay backdrop for mobile sidebar */
+.filters-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 999;
+}
+.filters-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.page-btn {
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.page-btn:hover { background: var(--border-light); }
+.page-btn.active {
+  background: var(--accent-gradient);
+  color: white;
+  border-color: transparent;
+}
+
+/* Skeleton override to match grid */
+.job-card-skeleton {
+  min-height: 180px;
+}
+
+/* Load More */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.load-more-button {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

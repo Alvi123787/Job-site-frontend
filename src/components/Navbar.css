@@ -1,0 +1,309 @@
+:root {
+  --primary: #1E3A8A;         /* Indigo Blue */
+  --secondary: #3B82F6;       /* Bright Blue */
+  --accent: #06B6D4;          /* Cyan Aqua */
+  --background: #F8FAFC;      /* Very Light Gray */
+  --text: #1E293B;            /* Slate Gray */
+  --accent-gradient: linear-gradient(135deg, #3B82F6, #06B6D4);
+  --shadow-color: rgba(59, 130, 246, 0.2);
+  --background-shadow: rgba(241, 245, 249, 0.9);
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: var(--background);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 50px;
+  position: relative;
+}
+
+/* Brand Styles */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover {
+  opacity: 0.8;
+}
+
+.brand-logo {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.brand-name {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.brand-slogan {
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Navigation Links */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--secondary);
+}
+
+.nav-link.active {
+  color: var(--secondary);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--secondary);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Login Button */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Theme toggle removed: site always uses light theme */
+
+.login-btn {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+/* User avatar & dropdown */
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+.user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.user-menu { position: relative; }
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+  min-width: 220px;
+  z-index: 1200;
+  display: none;
+}
+.user-menu:hover .user-dropdown { display: block; }
+.user-dropdown .info { padding: 0.5rem; border-bottom: 1px solid #f0f2f5; }
+.user-dropdown .info .name { font-weight: 600; }
+.user-dropdown .info .email { color: #6b7280; font-size: 0.85rem; }
+.user-dropdown .actions { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem; }
+.user-dropdown .actions a, .user-dropdown .actions button {
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text);
+}
+.user-dropdown .actions a:hover, .user-dropdown .actions button:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  gap: 0.25rem;
+}
+
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0.75rem 50px;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--background);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0;
+    border-top: 1px solid #E2E8F0;
+    box-shadow: 0 4px 20px var(--background-shadow);
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-link {
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #E2E8F0;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+  }
+
+  .login-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0.6rem 50px;
+  }
+
+  .brand-name {
+    font-size: 1.1rem;
+  }
+
+  .login-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Animation for mobile menu toggle when active */
+.mobile-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Override small-screen horizontal padding to remove side spacing */
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0.6rem 50px;
+  }
+}

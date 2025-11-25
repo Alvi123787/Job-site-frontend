@@ -1,0 +1,65 @@
+/* Privacy Policy Page Styles */
+
+.policy-page { background: var(--background); color: var(--text); }
+.policy-page .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+.policy-hero { 
+  padding: 4rem 0 2rem; 
+  background: linear-gradient(180deg, rgba(59,130,246,0.06), rgba(6,182,212,0.04));
+  border-bottom: 1px solid var(--border-light);
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(59,130,246,0.08);
+  color: var(--secondary);
+  box-shadow: 0 6px 16px var(--shadow-color);
+}
+.hero-accent {
+  height: 8px; width: 140px; border-radius: 999px; 
+  background-image: var(--accent-gradient); box-shadow: 0 8px 18px var(--shadow-color); 
+  margin-top: 10px;
+}
+.policy-title { margin: 0.5rem 0 0.25rem; font-size: 2.2rem; font-weight: 900; letter-spacing: -0.02em; }
+.policy-subtitle { color: var(--text-secondary); max-width: 720px; font-size: 1.05rem; }
+
+.policy-content { padding: 2rem 0 3rem; }
+.policy-section { 
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 16px var(--shadow-color);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.policy-section > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  font-weight: 800;
+  color: #1E293B;
+}
+.policy-section[open] > summary { background: rgba(59,130,246,0.06); }
+.policy-section .section-icon { color: var(--secondary); display: inline-flex; }
+.policy-section .section-body { padding: 12px 16px 18px; color: #334155; }
+.policy-section .section-body ul { padding-left: 18px; }
+.policy-section .section-body li { margin: 6px 0; }
+
+/* subtle expand animation */
+details.policy-section[open] .section-body { animation: fadeIn 220ms ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-2px); } to { opacity: 1; transform: translateY(0); } }
+
+.policy-updated { margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary); }
+
+@media (max-width: 640px) {
+  .policy-title { font-size: 1.8rem; }
+}

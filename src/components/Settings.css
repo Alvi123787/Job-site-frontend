@@ -1,0 +1,157 @@
+/* Settings.css */
+.admin-settings {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-settings__header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.admin-settings__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.admin-settings__description {
+  font-size: 1.125rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.admin-settings__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.admin-settings__card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s ease;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-settings__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(135deg, #3B82F6, #06B6D4);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.admin-settings__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #3B82F6;
+}
+
+.admin-settings__card:hover::before {
+  transform: scaleX(1);
+}
+
+.admin-settings__card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1E293B;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.admin-settings__card-description {
+  font-size: 0.95rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-settings {
+    padding: 16px;
+  }
+
+  .admin-settings__title {
+    font-size: 2rem;
+  }
+
+  .admin-settings__description {
+    font-size: 1rem;
+  }
+
+  .admin-settings__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .admin-settings__card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-settings__title {
+    font-size: 1.75rem;
+  }
+
+  .admin-settings__description {
+    font-size: 0.95rem;
+  }
+
+  .admin-settings__card {
+    padding: 16px;
+  }
+
+  .admin-settings__card-title {
+    font-size: 1.125rem;
+  }
+
+  .admin-settings__card-description {
+    font-size: 0.9rem;
+  }
+}
+
+/* Animation for card entrance */
+@keyframes admin-settings-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-settings__card {
+  animation: admin-settings-fadeInUp 0.5s ease-out forwards;
+}
+
+.admin-settings__card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.admin-settings__card:nth-child(2) {
+  animation-delay: 0.2s;
+}
