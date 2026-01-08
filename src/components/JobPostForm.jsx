@@ -58,10 +58,17 @@ const JobPostTagInput = ({ value = [], onChange }) => {
     const next = Array.from(new Set([...(value || []), t]));
     onChange(next);
   };
+  const removeJobPostTag = (tag) => {
+    const next = (value || []).filter(t => t !== tag);
+    onChange(next);
+  };
   return (
     <div className="job-post-tags-input" aria-label="Tags input">
       {(value || []).map((t) => (
-        <span key={t} className="job-post-tag-chip">{t}</span>
+        <span key={t} className="job-post-tag-chip">
+          {t}
+          <button type="button" onClick={() => removeJobPostTag(t)} className="job-post-tag-remove" aria-label="Remove tag">×</button>
+        </span>
       ))}
       <input
         placeholder="Add tags, press Enter"
@@ -87,10 +94,17 @@ const JobPostSkillsInput = ({ value = [], onChange }) => {
     const next = Array.from(new Set([...(value || []), s]));
     onChange(next);
   };
+  const removeJobPostSkill = (skill) => {
+    const next = (value || []).filter(s => s !== skill);
+    onChange(next);
+  };
   return (
     <div className="job-post-tags-input" aria-label="Skills input">
       {(value || []).map((s) => (
-        <span key={s} className="job-post-tag-chip">{s}</span>
+        <span key={s} className="job-post-tag-chip">
+          {s}
+          <button type="button" onClick={() => removeJobPostSkill(s)} className="job-post-tag-remove" aria-label="Remove skill">×</button>
+        </span>
       ))}
       <input
         placeholder="Add skills, press Enter (e.g., React)"
@@ -108,7 +122,7 @@ const JobPostSkillsInput = ({ value = [], onChange }) => {
   );
 };
 
-const JobPostForm = ({ onPublished }) => {
+const JobPostForm = ({ onPublished, editId }) => {
   const [jobPostForm, setJobPostForm] = useState(jobPostInitialState);
   const [jobPostStatus, setJobPostStatus] = useState({ loading: false, message: '' });
   const [jobPostEditingId, setJobPostEditingId] = useState('');
@@ -120,13 +134,16 @@ const JobPostForm = ({ onPublished }) => {
     if (raw) {
       try { setJobPostForm(JSON.parse(raw)); } catch { void 0; }
     }
-    const editId = localStorage.getItem('edit_job_id');
-    if (editId) {
-      setJobPostEditingId(editId);
+    
+    // Determine which ID to use: prop > localStorage
+    const targetId = editId || localStorage.getItem('edit_job_id');
+    
+    if (targetId) {
+      setJobPostEditingId(targetId);
       (async () => {
         try {
           setJobPostStatus({ loading: true, message: '' });
-          const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs/${editId}`);
+          const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs/${targetId}`);
           const job = await resp.json();
           if (!resp.ok) throw new Error(job?.error || 'Failed to load job');
           const toDateInput = (v) => v ? new Date(v).toISOString().slice(0,10) : '';
@@ -168,7 +185,7 @@ const JobPostForm = ({ onPublished }) => {
         }
       })();
     }
-  }, []);
+  }, [editId]);
 
   const jobPostCategoryMatch = useMemo(() => {
     const name = (jobPostForm.category || '').trim().toLowerCase();

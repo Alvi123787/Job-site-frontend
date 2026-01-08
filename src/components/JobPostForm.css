@@ -266,6 +266,25 @@
   animation: jobPostSlideIn 0.2s ease;
 }
 
+.job-post-tag-remove {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 0.25rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 0.25rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.job-post-tag-remove:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
 @keyframes jobPostSlideIn {
   from {
     opacity: 0;

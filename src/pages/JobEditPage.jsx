@@ -17,7 +17,7 @@ export default function JobEditPage() {
         <h1>Edit Job</h1>
         <p>Update the job details and republish if needed.</p>
       </div>
-      <JobPostForm />
+      <JobPostForm editId={id} />
     </div>
   );
 }
