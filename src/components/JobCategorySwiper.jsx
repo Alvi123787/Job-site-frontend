@@ -14,6 +14,7 @@ import {
   faCheckCircle,
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
+import { resolveImageUrl } from "../utils/media";
 import "./JobCategorySwiper.css";
  
 
@@ -56,7 +57,7 @@ const JobCategorySwiper = () => {
     let cancelled = false;
     (async () => {
       try {
-        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/jobs/categories');
+        const resp = await fetch('https://job-site-backend-seven.vercel.app/api/categories');
         if (!resp.ok) {
           setLoading(false);
           return;
@@ -64,8 +65,8 @@ const JobCategorySwiper = () => {
         const data = await resp.json();
         const list = Array.isArray(data) ? data : Array.isArray(data?.categories) ? data.categories : [];
         if (!cancelled) setCategories(list);
-      } catch (_) {
-        // ignore errors
+      } catch {
+        void 0;
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -132,6 +133,7 @@ const JobCategorySwiper = () => {
                 const icon = iconFor(cat.name);
                 const color = "#3B82F6";
                 const key = cat.name ? `${cat.name}-${idx}` : `loading-${idx}`;
+                const imgSrc = cat.imageUrl ? resolveImageUrl(cat.imageUrl) : '';
                 return (
                   <div
                     key={key}
@@ -139,16 +141,15 @@ const JobCategorySwiper = () => {
                     onClick={() => !cat._loading && navigate(`/jobs?category=${encodeURIComponent(cat.name)}`)}
                   >
                     <div className="category-logo-wrapper">
-                      <div className="category-icon" style={{ background: `${color}20`, color }}>
-                        <FontAwesomeIcon icon={icon} size="2x" />
-                      </div>
+                      {imgSrc ? (
+                        <img src={imgSrc} alt={cat.name || 'Category'} className="category-icon" style={{ objectFit: "cover" }} />
+                      ) : (
+                        <div className="category-icon" style={{ background: `${color}20`, color }}>
+                          <FontAwesomeIcon icon={icon} size="2x" />
+                        </div>
+                      )}
                     </div>
                     <h3 className="category-name">{cat.name}</h3>
-                    {Number.isFinite(cat.count) ? (
-                      <div className="job-count">{Number(cat.count).toLocaleString()} jobs</div>
-                    ) : (
-                      <div className="job-count" style={{ opacity: 0 }}>&nbsp;</div>
-                    )}
                   </div>
                 );
               })}

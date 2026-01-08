@@ -112,12 +112,14 @@ const JobPostForm = ({ onPublished }) => {
   const [jobPostForm, setJobPostForm] = useState(jobPostInitialState);
   const [jobPostStatus, setJobPostStatus] = useState({ loading: false, message: '' });
   const [jobPostEditingId, setJobPostEditingId] = useState('');
+  const [categoryImageFile, setCategoryImageFile] = useState(null);
+  const [categoryImagePreview, setCategoryImagePreview] = useState('');
 
   useEffect(() => {
     // Load draft if exists
     const raw = localStorage.getItem('job_form_draft');
     if (raw) {
-      try { setJobPostForm(JSON.parse(raw)); } catch (_) {}
+      try { setJobPostForm(JSON.parse(raw)); } catch { void 0; }
     }
     const editId = localStorage.getItem('edit_job_id');
     if (editId) {
@@ -192,6 +194,14 @@ const JobPostForm = ({ onPublished }) => {
     reader.readAsDataURL(file);
   };
 
+  const handleCategoryImageUpload = (file) => {
+    if (!file) return;
+    setCategoryImageFile(file);
+    const reader = new FileReader();
+    reader.onload = () => setCategoryImagePreview(reader.result);
+    reader.readAsDataURL(file);
+  };
+
   const validateJobPost = () => {
     const required = ['title','company','jobType','workMode','country','shortDescription','longDescription','experience','employmentLevel','apply'];
     for (const key of required) {
@@ -205,6 +215,7 @@ const JobPostForm = ({ onPublished }) => {
     const endTs = Date.parse(jobPostForm.endDate);
     if (!Number.isFinite(endTs)) return 'End Date of Job is invalid';
     if (endTs < Date.now()) return 'End Date must be a future date';
+    if (categoryImageFile && !String(jobPostForm.category || '').trim()) return 'Category Name is required when uploading an image';
     return '';
   };
 
@@ -239,6 +250,25 @@ const JobPostForm = ({ onPublished }) => {
     setJobPostStatus({ loading: true, message: '' });
     let backendSaved = null;
     try {
+      if (categoryImageFile && String(jobPostForm.category || '').trim()) {
+        const fd = new FormData();
+        fd.append('image', categoryImageFile);
+        const upResp = await fetch('https://job-site-backend-seven.vercel.app/api/assets/upload/category', { method: 'POST', body: fd });
+        const upJson = await upResp.json().catch(() => ({}));
+        if (!upResp.ok || !upJson?.url) throw new Error(upJson?.error || 'Category image upload failed');
+        const catResp = await fetch('https://job-site-backend-seven.vercel.app/api/categories', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: jobPostForm.category.trim(), imageUrl: upJson.url }),
+        });
+        const catJson = await catResp.json().catch(() => ({}));
+        if (!catResp.ok) throw new Error(catJson?.error || 'Failed to save category');
+      }
+    } catch (e) {
+      setJobPostStatus({ loading: false, message: e.message || 'Category save error' });
+      return;
+    }
+    try {
       const method = jobPostEditingId ? 'PUT' : 'POST';
       const url = jobPostEditingId ? `https://job-site-backend-seven.vercel.app/api/jobs/${jobPostEditingId}` : `https://job-site-backend-seven.vercel.app/api/jobs`;
       const resp = await fetch(url, {
@@ -258,10 +288,10 @@ const JobPostForm = ({ onPublished }) => {
       return;
     }
 
-    try { localStorage.removeItem('job_form_draft'); } catch (_) {}
+    try { localStorage.removeItem('job_form_draft'); } catch { void 0; }
     if (jobPostEditingId) {
       setJobPostStatus({ loading: false, message: 'Job updated successfully.' });
-      try { localStorage.removeItem('edit_job_id'); } catch (_) {}
+      try { localStorage.removeItem('edit_job_id'); } catch { void 0; }
     } else {
       // Keep localStorage insert for Jobs page continuity
       const record = toJobPostRecord('published');
@@ -273,6 +303,8 @@ const JobPostForm = ({ onPublished }) => {
       setJobPostStatus({ loading: false, message: 'Job published to server and saved locally.' });
       if (typeof onPublished === 'function') onPublished(record);
       setJobPostForm(jobPostInitialState());
+      setCategoryImageFile(null);
+      setCategoryImagePreview('');
     }
   };
 
@@ -346,6 +378,25 @@ const JobPostForm = ({ onPublished }) => {
           </div>
         </div>
 
+        {/* Category */}
+        <div className="job-post-section">
+          <div className="job-post-section-title">Category</div>
+          <div className="job-post-grid-2">
+            <div className="job-post-form-field">
+              <label>Category Name</label>
+              <input className="job-post-form-input" value={jobPostForm.category} onChange={(e) => handleJobPostChange('category', e.target.value)} placeholder="e.g., Software Development" />
+            </div>
+            <div className="job-post-form-field">
+              <label>Category Image</label>
+              <div className="job-post-inline-fields">
+                <input type="file" accept="image/*" onChange={(e) => handleCategoryImageUpload(e.target.files?.[0])} />
+                {categoryImagePreview && <img src={categoryImagePreview} alt="Category preview" className="job-post-logo-preview" />}
+              </div>
+              <span className="job-post-help">Upload a square image for best results</span>
+            </div>
+          </div>
+        </div>
+
         {/* 2. Location & Global Reach */}
         <div className="job-post-section">
           <div className="job-post-section-title">Location & Global Reach</div>
@@ -393,17 +444,29 @@ const JobPostForm = ({ onPublished }) => {
             </div>
             <div className="job-post-form-field">
               <label>Experience Required</label>
-              <input className="job-post-form-input" value={jobPostForm.experience} onChange={(e) => handleJobPostChange('experience', e.target.value)} placeholder="e.g., 3–5 years" />
+              <select className="job-post-form-select" value={jobPostForm.experience} onChange={(e) => handleJobPostChange('experience', e.target.value)}>
+                {jobPostExperiences.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="job-post-grid-2">
             <div className="job-post-form-field">
               <label>Education Level</label>
-              <input className="job-post-form-input" value={jobPostForm.education} onChange={(e) => handleJobPostChange('education', e.target.value)} placeholder="e.g., Bachelor's, Master's" />
+              <select className="job-post-form-select" value={jobPostForm.education} onChange={(e) => handleJobPostChange('education', e.target.value)}>
+                {jobPostEducations.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
             </div>
             <div className="job-post-form-field">
               <label>Employment Level</label>
-              <input className="job-post-form-input" value={jobPostForm.employmentLevel} onChange={(e) => handleJobPostChange('employmentLevel', e.target.value)} placeholder="e.g., Entry, Mid, Senior" />
+              <select className="job-post-form-select" value={jobPostForm.employmentLevel} onChange={(e) => handleJobPostChange('employmentLevel', e.target.value)}>
+                {jobPostLevels.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
