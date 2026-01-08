@@ -382,7 +382,7 @@ const JobPostForm = ({ onPublished }) => {
               <label>Category Image</label>
               <div className="job-post-inline-fields">
                 <input type="file" accept="image/*" onChange={(e) => handleCategoryImageUpload(e.target.files?.[0])} />
-                {categoryImagePreview && <img src={categoryImagePreview} alt="Category preview" className="job-post-logo-preview" />}
+                {categoryImageBase64 && <img src={categoryImageBase64} alt="Category preview" className="job-post-logo-preview" />}
               </div>
               <span className="job-post-help">Upload a square image for best results</span>
             </div>
