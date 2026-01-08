@@ -1,0 +1,139 @@
+/* FormattedDescription.css - Clean & Professional Styling */
+
+.formatted-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Simple text display */
+.fd-simple p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+/* Sections */
+.fd-section {
+  margin-bottom: 1.75rem;
+}
+
+.fd-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Section Title */
+.fd-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.fd-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  color: var(--secondary);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* Section Content */
+.fd-section-content {
+  padding-left: 0.5rem;
+}
+
+/* Paragraphs */
+.fd-paragraph {
+  margin: 0 0 1rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.fd-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Lists */
+.fd-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.fd-list:last-child {
+  margin-bottom: 0;
+}
+
+.fd-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 8px;
+  border-left: 3px solid var(--secondary);
+  transition: all 0.2s ease;
+}
+
+.fd-list li:hover {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  transform: translateX(4px);
+}
+
+.fd-bullet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+.fd-bullet svg {
+  width: 12px;
+  height: 12px;
+}
+
+.fd-list-text {
+  flex: 1;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .fd-section-title {
+    font-size: 1rem;
+  }
+  
+  .fd-title-icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .fd-list li {
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .fd-section-content {
+    padding-left: 0;
+  }
+}

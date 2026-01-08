@@ -125,22 +125,56 @@ const Jobs = () => {
         const featuredParam = params.get('featured') ?? params.get('feature');
         const featuredQuery = typeof featuredParam === 'string' ? `&featured=${featuredParam}` : '';
         const resp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs?page=${page}&limit=20${featuredQuery}`);
-        if (!resp.ok) { setLoading(false); return; }
-        const data = await resp.json();
-        const list = Array.isArray(data) ? data : (Array.isArray(data?.jobs) ? data.jobs : []);
-        const mapped = list.map(mapApiJob);
-        setRemoteJobs(prev => [...prev, ...mapped]);
-        if (!Array.isArray(data)) {
-          setTotalJobs(Number(data.totalJobs || 0));
-          const totalPages = Number(data.totalPages || 1);
-          setHasMore(page < totalPages);
+        if (resp.ok) {
+          const data = await resp.json();
+          const list = Array.isArray(data) ? data : (Array.isArray(data?.jobs) ? data.jobs : []);
+          const mapped = list.map(mapApiJob);
+          setRemoteJobs(prev => [...prev, ...mapped]);
+          if (!Array.isArray(data)) {
+            setTotalJobs(Number(data.totalJobs || 0));
+            const totalPages = Number(data.totalPages || 1);
+            setHasMore(page < totalPages);
+          } else {
+            setHasMore(false);
+            setTotalJobs(mapped.length);
+          }
         } else {
-          // Fallback if backend returns array
+          const altResp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs?limit=50${featuredQuery}`);
+          if (!altResp.ok) { setHasMore(false); return; }
+          const altData = await altResp.json();
+          const altList = Array.isArray(altData) ? altData : (Array.isArray(altData?.jobs) ? altData.jobs : []);
+          const mapped = altList.map(mapApiJob);
+          setRemoteJobs(prev => [...prev, ...mapped]);
           setHasMore(false);
-          setTotalJobs(mapped.length);
+          if (!Array.isArray(altData)) {
+            setTotalJobs(Number(altData.totalJobs || mapped.length || 0));
+          } else {
+            setTotalJobs(mapped.length);
+          }
         }
       } catch (_) {
-        // ignore fetch errors (offline backend)
+        try {
+          const params = new URLSearchParams(location.search || '');
+          const featuredParam = params.get('featured') ?? params.get('feature');
+          const featuredQuery = typeof featuredParam === 'string' ? `&featured=${featuredParam}` : '';
+          const altResp = await fetch(`https://job-site-backend-seven.vercel.app/api/jobs?limit=50${featuredQuery}`);
+          if (altResp.ok) {
+            const altData = await altResp.json();
+            const altList = Array.isArray(altData) ? altData : (Array.isArray(altData?.jobs) ? altData.jobs : []);
+            const mapped = altList.map(mapApiJob);
+            setRemoteJobs(prev => [...prev, ...mapped]);
+            setHasMore(false);
+            if (!Array.isArray(altData)) {
+              setTotalJobs(Number(altData.totalJobs || mapped.length || 0));
+            } else {
+              setTotalJobs(mapped.length);
+            }
+          } else {
+            setHasMore(false);
+          }
+        } catch (_) {
+          setHasMore(false);
+        }
       } finally {
         setLoading(false);
       }

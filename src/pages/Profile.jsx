@@ -57,12 +57,6 @@ const Profile = () => {
       } catch (err) {
         const msg = err.message || 'Failed to load profile';
         setError(msg);
-        if (/Invalid token|Missing token/i.test(msg)) {
-          try { localStorage.removeItem('auth_token'); localStorage.removeItem('auth_user'); } catch (_) {}
-          window.dispatchEvent(new Event('auth-changed'));
-          navigate('/login');
-          return;
-        }
       }
       setLoading(false);
     };
@@ -103,11 +97,6 @@ const Profile = () => {
     } catch (err) {
       const msg = err.message || 'Failed to update profile';
       setError(msg);
-      if (/Invalid token|Missing token/i.test(msg)) {
-        try { localStorage.removeItem('auth_token'); localStorage.removeItem('auth_user'); } catch (_) {}
-        window.dispatchEvent(new Event('auth-changed'));
-        navigate('/login');
-      }
     }
     setSaving(false);
   };

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import './Footer.css';
 import { COUNTRIES } from '../data/countries';
  
@@ -40,20 +39,6 @@ const Footer = () => {
                 <div className="footer-content">
                     <div className="footer-section">
                         <h3 className="footer-title">Job Box</h3>
-                        <div className="social-links">
-                            <a href="#" className="social-link">
-                                <FaLinkedin />
-                            </a>
-                            <a href="#" className="social-link">
-                                <FaTwitter />
-                            </a>
-                            <a href="#" className="social-link">
-                                <FaFacebook />
-                            </a>
-                            <a href="#" className="social-link">
-                                <FaInstagram />
-                            </a>
-                        </div>
                     </div>
 
                     {/* Quick Links */}

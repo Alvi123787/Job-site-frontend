@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import './JobDetail.css'
 import { saveJob, removeJob, isJobSaved, fetchSavedItems } from '../utils/saved'
 import JobStructuredData from '../components/JobStructuredData'
+import FormattedDescription from '../components/FormattedDescription'
  
 
 export default function JobDetail() {
@@ -16,11 +17,18 @@ export default function JobDetail() {
 
   useEffect(() => {
     const isObjectId = (v) => typeof v === 'string' && /^[a-f0-9]{24}$/i.test(v)
+    const splitTokens = (v) => String(v || '').split(/[•,;|/\n]+/).map(s => s.trim()).filter(Boolean)
 
     const mapJob = (j) => {
       // Location should show city/state/country even for remote roles
       const location = `${j.city || ''}${j.state ? ', ' + j.state : ''}${j.country ? ', ' + j.country : ''}`.replace(/^,\s*/, '')
-      const benefitsArr = Array.isArray(j.benefits) ? j.benefits : (j.benefits || '').split(',').map(s => s.trim()).filter(Boolean)
+      const benefitsArr = Array.isArray(j.benefits) ? j.benefits : splitTokens(j.benefits)
+      const currencyCode = j.currency || ''
+      const symbolMap = { usd: '$', eur: '€', gbp: '£', aed: 'د.إ', sar: '﷼', kwd: 'د.ك', bhd: '.د.ب', pkr: '₨', inr: '₹', jpy: '¥', cny: '¥', cad: '$', aud: '$' }
+      const sym = symbolMap[String(currencyCode).toLowerCase()] || (currencyCode ? currencyCode : '')
+      const salaryRangeFormatted = (j.salaryMin && j.salaryMax)
+        ? `${sym}${j.salaryMin}–${sym}${j.salaryMax}`
+        : ((j.salaryMax || j.salaryMin) ? `${sym}${j.salaryMax || j.salaryMin}` : '')
       return {
         id: j._id || j.id,
         title: j.title,
@@ -43,8 +51,9 @@ export default function JobDetail() {
         qualifications: [j.experience, j.education].filter(Boolean),
         preferredSkills: Array.isArray(j.tags) ? j.tags : (j.tags ? String(j.tags).split(',').map(s => s.trim()) : []),
         experienceLevel: j.employmentLevel,
-        salaryRange: j.salaryMin && j.salaryMax ? `${j.salaryMin}–${j.salaryMax}` : (j.salaryMax || j.salaryMin || ''),
+        salaryRange: salaryRangeFormatted,
         salaryPeriod: j.salaryPer || 'Year',
+        salaryCurrency: currencyCode,
         employmentType: j.jobType,
         benefits: benefitsArr,
         apply: j.apply,
@@ -388,11 +397,11 @@ export default function JobDetail() {
       <div className="job-content">
         {/* Main Content */}
         <article className="details">
-          {/* Job Description */}
+          {/* Job Description - UPDATED */}
           {job.description && (
             <section className="detail-section">
               <h2 className="section-title">Job Description</h2>
-              <p className="section-text">{job.description}</p>
+              <FormattedDescription text={job.description} />
             </section>
           )}
 
