@@ -36,6 +36,7 @@ export default function JobDetail() {
         workType: j.remote ? 'Remote' : j.workMode,
         type: j.jobType,
         postedDate: new Date(j.postingDate || j.createdAt || Date.now()).toLocaleDateString(),
+        endDate: j.endDate ? new Date(j.endDate).toLocaleDateString() : null,
         applications: (typeof j.applicationsCount !== 'undefined') ? Number(j.applicationsCount) : (typeof j.applications !== 'undefined' ? Number(j.applications) : 0),
         description: j.longDescription || j.shortDescription || '',
         responsibilities: Array.isArray(j.skills) ? j.skills : (j.skills ? String(j.skills).split(',').map(s => s.trim()) : []),
@@ -358,6 +359,15 @@ export default function JobDetail() {
               <span className="meta-value">{job.postedDate}</span>
             </div>
           </div>
+          {job.endDate && (
+            <div className="meta-item">
+              <div className="meta-icon">⏳</div>
+              <div className="meta-content">
+                <span className="meta-label">End Date</span>
+                <span className="meta-value">{job.endDate}</span>
+              </div>
+            </div>
+          )}
           <div className="meta-item">
             <div className="meta-icon">👥</div>
             <div className="meta-content">
