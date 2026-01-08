@@ -246,50 +246,11 @@
   border-radius: 2px;
 }
 
-/* Formatted Description Styles */
-.formatted-description {
+.job-detail .section-text {
   color: var(--text);
   line-height: 1.7;
   font-size: 1.05rem;
 }
-
-.desc-heading {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin: 1.5rem 0 0.75rem 0;
-  padding-bottom: 0.25rem;
-  /* Optional: small underline for subheadings */
-  /* border-bottom: 2px solid var(--border-light); */
-  /* display: inline-block; */
-}
-
-.desc-heading:first-child {
-  margin-top: 0;
-}
-
-.desc-text {
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.desc-list {
-  margin: 0.5rem 0 1.5rem 0;
-  padding-left: 1.5rem;
-  list-style-type: disc;
-}
-
-.desc-list li {
-  margin-bottom: 0.5rem;
-  padding-left: 0.25rem;
-  color: var(--text);
-}
-
-.desc-list li::marker {
-  color: var(--secondary);
-}
-
-/* Original styles continue... */
 
 .job-detail .bullet-list {
   margin: 0;
@@ -736,5 +697,7 @@
 @media (min-width: 1025px) {
   .job-detail .sidebar {
     position: static;
+    top: auto;
+    align-self: auto;
   }
 }
