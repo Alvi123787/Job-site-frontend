@@ -357,10 +357,10 @@ const JobPostForm = ({ onPublished, editId }) => {
               </div>
               <span className="job-post-help">Upload a square logo for best results</span>
             </div>
-            <div className="job-post-form-field">
+            {/* <div className="job-post-form-field">
               <label>Job Category</label>
               <input className="job-post-form-input" value={jobPostForm.category} onChange={(e) => handleJobPostChange('category', e.target.value)} placeholder="e.g., Software Development" />
-            </div>
+            </div> */}
             <div className="job-post-form-field">
               <label>Job Type</label>
               <select className="job-post-form-select" value={jobPostForm.jobType} onChange={(e) => handleJobPostChange('jobType', e.target.value)}>
