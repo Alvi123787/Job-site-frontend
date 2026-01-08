@@ -64,15 +64,12 @@ export async function fetchMyJobs({ page = 1, limit = 10, status } = {}) {
   return data; // { total, page, limit, items }
 }
 
-export async function uploadAvatar(file) {
-  const fd = new FormData();
-  fd.append('avatar', file);
-  const res = await fetch('https://job-site-backend-seven.vercel.app/api/assets/upload/avatar', {
-    method: 'POST',
-    headers: { ...authHeaders() },
-    body: fd,
+export function uploadAvatar(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) return reject(new Error('No file provided'));
+    const reader = new FileReader();
+    reader.onload = () => resolve({ url: reader.result });
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data?.error || 'Failed to upload avatar');
-  return data; // { url }
 }

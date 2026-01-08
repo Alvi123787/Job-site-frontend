@@ -112,8 +112,7 @@ const JobPostForm = ({ onPublished }) => {
   const [jobPostForm, setJobPostForm] = useState(jobPostInitialState);
   const [jobPostStatus, setJobPostStatus] = useState({ loading: false, message: '' });
   const [jobPostEditingId, setJobPostEditingId] = useState('');
-  const [categoryImageFile, setCategoryImageFile] = useState(null);
-  const [categoryImagePreview, setCategoryImagePreview] = useState('');
+  const [categoryImageBase64, setCategoryImageBase64] = useState('');
 
   useEffect(() => {
     // Load draft if exists
@@ -196,9 +195,8 @@ const JobPostForm = ({ onPublished }) => {
 
   const handleCategoryImageUpload = (file) => {
     if (!file) return;
-    setCategoryImageFile(file);
     const reader = new FileReader();
-    reader.onload = () => setCategoryImagePreview(reader.result);
+    reader.onload = () => setCategoryImageBase64(reader.result);
     reader.readAsDataURL(file);
   };
 
@@ -215,7 +213,7 @@ const JobPostForm = ({ onPublished }) => {
     const endTs = Date.parse(jobPostForm.endDate);
     if (!Number.isFinite(endTs)) return 'End Date of Job is invalid';
     if (endTs < Date.now()) return 'End Date must be a future date';
-    if (categoryImageFile && !String(jobPostForm.category || '').trim()) return 'Category Name is required when uploading an image';
+    if (categoryImageBase64 && !String(jobPostForm.category || '').trim()) return 'Category Name is required when uploading an image';
     return '';
   };
 
@@ -250,16 +248,11 @@ const JobPostForm = ({ onPublished }) => {
     setJobPostStatus({ loading: true, message: '' });
     let backendSaved = null;
     try {
-      if (categoryImageFile && String(jobPostForm.category || '').trim()) {
-        const fd = new FormData();
-        fd.append('image', categoryImageFile);
-        const upResp = await fetch('https://job-site-backend-seven.vercel.app/api/assets/upload/category', { method: 'POST', body: fd });
-        const upJson = await upResp.json().catch(() => ({}));
-        if (!upResp.ok || !upJson?.url) throw new Error(upJson?.error || 'Category image upload failed');
+      if (categoryImageBase64 && String(jobPostForm.category || '').trim()) {
         const catResp = await fetch('https://job-site-backend-seven.vercel.app/api/categories', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: jobPostForm.category.trim(), imageUrl: upJson.url }),
+          body: JSON.stringify({ name: jobPostForm.category.trim(), imageUrl: categoryImageBase64 }),
         });
         const catJson = await catResp.json().catch(() => ({}));
         if (!catResp.ok) throw new Error(catJson?.error || 'Failed to save category');
@@ -303,8 +296,7 @@ const JobPostForm = ({ onPublished }) => {
       setJobPostStatus({ loading: false, message: 'Job published to server and saved locally.' });
       if (typeof onPublished === 'function') onPublished(record);
       setJobPostForm(jobPostInitialState());
-      setCategoryImageFile(null);
-      setCategoryImagePreview('');
+      setCategoryImageBase64('');
     }
   };
 
