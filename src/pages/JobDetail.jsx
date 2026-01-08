@@ -3,7 +3,83 @@ import { useEffect, useState } from 'react'
 import './JobDetail.css'
 import { saveJob, removeJob, isJobSaved, fetchSavedItems } from '../utils/saved'
 import JobStructuredData from '../components/JobStructuredData'
- 
+
+const JobDescriptionFormatter = ({ text }) => {
+  if (!text) return null;
+
+  // 1. Normalize line endings
+  let processed = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  // 2. Insert newlines before headers (keywords)
+  // This helps when text is a single block without line breaks
+  const headerKeywords = [
+    'responsibilities', 'key responsibilities', 'requirements', 'qualifications', 
+    'skills', 'benefits', 'perks', 'about the role', 'what you\'ll do', 
+    'who you are', 'job summary', 'what we offer', 'nice to have', 'about us', 
+    'the role', 'mission', 'your impact', 'culture', 'minimum qualifications',
+    'preferred qualifications'
+  ];
+  
+  // Regex to find "Punctuation/Start -> Keyword -> Colon?"
+  // We preserve the punctuation but force a double newline after it
+  const headerRegex = new RegExp(`(^|\\n|[\\.\\!\\?]\\s+)(${headerKeywords.join('|')})(:?)`, 'gim');
+  processed = processed.replace(headerRegex, (match, p1, p2, p3) => {
+    return `${p1}\n\n${p2}${p3}\n`;
+  });
+
+  // 3. Ensure bullets start on new lines
+  processed = processed.replace(/([•●▪])/g, '\n$1'); // Unicode bullets
+  processed = processed.replace(/(^|\s)([-*])\s/g, '\n$2 '); // Hyphen/Asterisk bullets
+
+  // 4. Handle numbered lists (e.g. "1. Item")
+  processed = processed.replace(/(^|\s)(\d+\.)\s/g, '\n$2 ');
+
+  // Split into lines and cleanup
+  const lines = processed.split('\n').map(l => l.trim()).filter(Boolean);
+  
+  const sections = [];
+  let currentList = [];
+  
+  const flushList = () => {
+    if (currentList.length > 0) {
+      sections.push(<ul key={`list-${sections.length}`} className="desc-list">{currentList}</ul>);
+      currentList = [];
+    }
+  };
+
+  lines.forEach((line, idx) => {
+    const lower = line.toLowerCase();
+    const isShort = line.length < 100;
+    
+    // Check for Headers
+    const matchesKeyword = headerKeywords.some(k => lower.startsWith(k));
+    const endsWithColon = line.endsWith(':');
+    
+    // It is a header if:
+    // - Starts with a keyword AND is short
+    // - OR ends with a colon AND is short AND doesn't look like a sentence
+    const isHeader = (matchesKeyword && isShort) || (endsWithColon && isShort && !line.includes('. '));
+    
+    // Check for List Items
+    const isListItem = /^([•●▪* -]|[\d]+\.)\s/.test(line) || /^([•●▪])/.test(line);
+
+    if (isHeader) {
+      flushList();
+      sections.push(<h3 key={`head-${idx}`} className="desc-heading">{line.replace(/:$/, '')}</h3>);
+    } else if (isListItem) {
+      // Remove bullet/number from start
+      const content = line.replace(/^([•●▪* -]|[\d]+\.)\s*/, '').trim();
+      currentList.push(<li key={`li-${idx}`}>{content}</li>);
+    } else {
+      flushList();
+      sections.push(<p key={`p-${idx}`} className="desc-text">{line}</p>);
+    }
+  });
+  
+  flushList();
+
+  return <div className="formatted-description">{sections}</div>;
+};
 
 export default function JobDetail() {
   const { id } = useParams()
@@ -392,7 +468,7 @@ export default function JobDetail() {
           {job.description && (
             <section className="detail-section">
               <h2 className="section-title">Job Description</h2>
-              <p className="section-text">{job.description}</p>
+              <JobDescriptionFormatter text={job.description} />
             </section>
           )}
 
